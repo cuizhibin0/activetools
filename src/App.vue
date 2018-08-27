@@ -12,7 +12,6 @@ export default {
 </script>
 
 <style>
-<style>
   /**
    * 路由动画 样式
    */
