@@ -161,7 +161,7 @@ export default {
         {
           title: "下限金额",
           dataIndex: "lowAmount",
-          width: "lowAmount",
+          width: "160px",
           render: text => {
             return text;
           }
@@ -310,15 +310,15 @@ export default {
 };
 </script>
 
-<style lang="less"> 
-@import "../../style/define.less";
+<style lang="less">
+// @import "../../style/define.less";
 /* lang="less" */
-/* // @import "../../style/define.less";
-// .history-list {
-//   td a {
-//     color: @primaryColor;
-//   }
-// } */
+@import "../../style/define.less";
+
+.history-list {
+ padding: 50px 50px;
+  
+}
 .img {
   max-width: 100px;
   max-height: 50px;
