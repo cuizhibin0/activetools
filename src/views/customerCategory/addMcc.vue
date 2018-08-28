@@ -36,7 +36,7 @@
           </n3-tooltip>
         </div> -->
       </n3-form-item>
-      <n3-form-item
+      <!-- <n3-form-item
         label="上限金额"
         need
         :label-col="3"
@@ -47,7 +47,6 @@
           width="320px"
           type="String"
         >
-        <!-- :custom-validate="phoneValidate" -->
         </n3-input>
       </n3-form-item>
       <n3-form-item
@@ -61,10 +60,9 @@
           width="320px"
           type="String"
         >
-        <!-- :custom-validate="phoneValidate" -->
         </n3-input>
-      </n3-form-item>
-      <div v-if="showStatus == 'true'">
+      </n3-form-item> -->
+      <div v-if="showStatus">
         <n3-form-item
           label="状态"
           :label-col="3"
@@ -138,13 +136,13 @@ export default {
         id: "",
         name: "",
         mcc: "",
-        hightAmount: "",
-        lowAmount: "",
+        // hightAmount: "",
+        // lowAmount: "",
         status: ""
       },
       loading: false,
       src: "",
-      showStatus: 'false',
+      showStatus: false,
       
     };
   },
@@ -156,20 +154,19 @@ export default {
       // 重置表单
       this.model = {
         name: "",
-        shortName: "",
-        bankCode: "",
-        logo: ""
+        mcc: "",
+        status: ""
       };
       this.loading = false;
     },
-    showCustomModal() {
-      this.$refs.imgUpload.url = API.IMG_UPLOAD;
-      this.$refs.customModal.open();
-    },
+    // showCustomModal() {
+    //   this.$refs.imgUpload.url = API.IMG_UPLOAD;
+    //   this.$refs.customModal.open();
+    // },
     // Random Pass
-    randomPasswd() {
-      this.model.password = randomPassword(18);
-    },
+    // randomPasswd() {
+    //   this.model.password = randomPassword(18);
+    // },
     addMcc() {
       let cond = Object.assign({}, this.model);
       // cond.expireDate = new Date(cond.expireDate).valueOf()
@@ -185,7 +182,7 @@ export default {
             duration: 2000,
             width: "240px" // 内容不确定，建议设置width
           });
-          this.$router.push("/table/");
+
         })
         .catch(error => {
           this.loading = false;
@@ -206,42 +203,6 @@ export default {
         }
         return this.addMcc();
       });
-    },
-    passwordValidate(val) {
-      if (val && val.length > 5 && val.length < 19) {
-        return {
-          validStatus: "success"
-        };
-      } else {
-        return {
-          validStatus: "error",
-          tips: "密码长度为6-18位"
-        };
-      }
-    },
-    phoneValidate(val) {
-      if (/^\d{11}$/.test(val)) {
-        return {
-          validStatus: "success"
-        };
-      } else {
-        return {
-          validStatus: "error",
-          tips: "请输入11位手机号"
-        };
-      }
-    },
-    usernameValidate(val) {
-      if (val && val.length > 5 && val.length < 19) {
-        return {
-          validStatus: "success"
-        };
-      } else {
-        return {
-          validStatus: "error",
-          tips: "账户名长度为6-18位"
-        };
-      }
     },
     // 图片上传失败处理
     onError({ message, file }) {
@@ -275,13 +236,13 @@ export default {
         .then(data => {
           // 成功处理
           if (data.code === "0000" && data.object != null) {
-            this.showStatus = 'true';
+            this.showStatus = true;
             this.model.status = data.object.status;
             this.model.id = data.object.id;
             this.model.name = data.object.name;
             this.model.mcc = data.object.mcc;
-            this.model.hightAmount = data.object.hightAmount;
-            this.model.lowAmount = data.object.lowAmount;
+            // this.model.hightAmount = data.object.hightAmount;
+            // this.model.lowAmount = data.object.lowAmount;
 
             console.log(this.model.status)
 

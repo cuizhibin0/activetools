@@ -22,12 +22,26 @@
         :label-col="3"
       >
         <n3-input
-          v-model="model.mcc"
+          v-model="model.code"
           width="320px"
           :rules="[{type:'required'}]"
           class="fl"
         >
+        </n3-input>
       </n3-form-item>
+       <div v-if="showStatus">
+        <n3-form-item
+          label="状态"
+          :label-col="3"
+        >
+        <!-- @change="searchChange" -->
+          <n3-select v-model="model.status" >
+              <n3-option value="">全部</n3-option>
+              <n3-option value="1">可用</n3-option>
+              <n3-option value="0">禁用</n3-option>
+            </n3-select>
+        </n3-form-item> 
+      </div>
 
       <n3-form-item
         :label-col="3"
@@ -48,26 +62,23 @@
 <script>
 import API from ".././../api/api.js";
 import qs from "qs";
-import { mapState } from "vuex";
+// import { mapState } from "vuex";
 // import { randomPassword, dateFormat } from "../../utils";
 
 export default {
-  computed: {
-    ...mapState(["user"])
-  },
+  // computed: {
+  //   ...mapState(["user"])
+  // },
   data() {
     return {
       model: {
         id: "",
         name: "",
-        mcc: "",
-        hightAmount: "",
-        lowAmount: "",
-        status: ""
+        code: ""
       },
       loading: false,
       src: "",
-      showStatus: 'false',
+      showStatus: false,
       
     };
   },
@@ -78,19 +89,17 @@ export default {
     reload() {
       // 重置表单
       this.model = {
+        id: "",
         name: "",
-        shortName: "",
-        bankCode: "",
-        logo: ""
+        code: ""
       };
       this.loading = false;
     },
-    addMcc() {
+    addPayType() {
       let cond = Object.assign({}, this.model);
-      // cond.expireDate = new Date(cond.expireDate).valueOf()
       this.loading = true;
       this.$http
-        .post(API.ADD_MCC, qs.stringify(cond))
+        .post(API.ADD_PAYTYPE, qs.stringify(cond))
         .then(data => {
           this.loading = false;
           this.n3Alert({
@@ -100,7 +109,7 @@ export default {
             duration: 2000,
             width: "240px" // 内容不确定，建议设置width
           });
-          this.$router.push("/table/");
+          this.$router.push("/payType");
         })
         .catch(error => {
           this.loading = false;
@@ -119,14 +128,13 @@ export default {
         if (!result.isvalid) {
           return;
         }
-        return this.addMcc();
+        return this.addPayType();
       });
     },
-    findBankBYId() {
-      console.log(this.showStatus);
+    findPayTypeBYId() {
       this.$http
         .post(
-          API.FIND_MCC_BY_ID,
+          API.FIND_PAYTYPE_BY_ID,
           qs.stringify({
             id: this.mccId
           })
@@ -134,16 +142,11 @@ export default {
         .then(data => {
           // 成功处理
           if (data.code === "0000" && data.object != null) {
-            this.showStatus = 'true';
+            this.showStatus = true;
             this.model.status = data.object.status;
             this.model.id = data.object.id;
             this.model.name = data.object.name;
-            this.model.mcc = data.object.mcc;
-            this.model.hightAmount = data.object.hightAmount;
-            this.model.lowAmount = data.object.lowAmount;
-
-            console.log(this.model.status)
-
+            this.model.code = data.object.code;
           }
         })
         .catch(error => {
@@ -161,7 +164,7 @@ export default {
   },
 
   created: function() {
-    this.findBankBYId();
+    this.findPayTypeBYId();
   }
 };
 </script>

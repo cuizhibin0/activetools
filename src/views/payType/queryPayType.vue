@@ -3,15 +3,15 @@
     <div class="search-bar">
       <div class="search-item">
         <div class="form-item">
-          <label for="">商户类别：</label>
+          <label for="">支付方式名称：</label>
           <n3-input v-model="searchKey.name" @change="searchChange"></n3-input>
         </div>
         <div class="form-item">
-          <label for="">MCC：</label>
-          <n3-input v-model="searchKey.mcc" @change="searchChange"></n3-input>
+          <label for="">支付方式编码：</label>
+          <n3-input v-model="searchKey.code" @change="searchChange"></n3-input>
         </div>
         <div class="form-item">
-          <label for="">MCC状态：</label>
+          <label for="">状态：</label>
           <n3-select v-model="searchKey.status" @change="searchChange">
             <n3-option value="">全部</n3-option>
             <n3-option value="1">可用</n3-option>
@@ -19,39 +19,6 @@
           </n3-select>
         </div>
       </div>
-      <!-- <div class="search-item">
-        <div class="form-item">
-          <label for="">上限金额：</label>
-          <n3-input v-model="searchKey.hightAmount" @change="searchChange"></n3-input>
-        </div>
-        <div class="form-item">
-          <label for="">下限金额：</label>
-          <n3-input v-model="searchKey.lowAmount" @change="searchChange"></n3-input>
-        </div>
-      </div> -->
-
-      <!-- <div class="search-item">
-        <div class="form-item">
-          <label for="">开始时间： </label>
-          <n3-datepicker
-            :rules="[{type:'required'}]"
-            v-model="searchKey.startDate"
-            format="yyyy-MM-dd"
-            @change="searchChange"
-          >
-          </n3-datepicker>
-        </div>
-        <div class="form-item">
-          <label for="">结束时间：</label>
-          <n3-datepicker
-            :rules="[{type:'required'}]"
-            v-model="searchKey.endDate"
-            format="yyyy-MM-dd"
-            @change="searchChange"
-          >
-          </n3-datepicker>
-        </div> 
-      </div> -->
       <div class="search-submit">
         <div class="form-item">
           <n3-button type="primary" block @click.native="searchRecord">搜索</n3-button>
@@ -91,7 +58,7 @@
 <script>
 import API from ".././../api/api.js";
 import qs from "qs";
-import bankForm from "./addMcc";
+import bankForm from "./addPayType";
 
 export default {
   data() {
@@ -100,9 +67,7 @@ export default {
       searchChanged: false,
       searchKey: {
         name: "",
-        mcc: "",
-        hightAmount: "",
-        lowAmount: "",
+        code: "",
         status: ""
       },
       selection: {
@@ -131,7 +96,7 @@ export default {
           }
         },
         {
-          title: "商户类别",
+          title: "支付方式名称",
           dataIndex: "name",
           width: "160px",
           render: (text, record, index) => {
@@ -139,8 +104,8 @@ export default {
           }
         },
         {
-          title: "MCC",
-          dataIndex: "mcc",
+          title: "支付方式编码",
+          dataIndex: "code",
           width: "120px",
           render: (text, record, index) => {
             return text;
@@ -148,24 +113,8 @@ export default {
                         ${text}
                       </router-link>`;
           }
-        }
-        // ,{
-        //   title: "上限金额",
-        //   dataIndex: "hightAmount",
-        //   width: "160px",
-        //   render: text => {
-        //     return text;
-        //   }
-        // },
-        // {
-        //   title: "下限金额",
-        //   dataIndex: "lowAmount",
-        //   width: "160px",
-        //   render: text => {
-        //     return text;
-        //   }
-        // }
-        ,{
+        },
+        {
           title: "状态",
           dataIndex: "status",
           width: "120px",
@@ -177,8 +126,6 @@ export default {
               text = "可用";
               return text;
             }
-
-            // return '<img class="img" src="' + text + '"  />'; //
           }
         },
         {
@@ -202,7 +149,6 @@ export default {
       this.searchChanged = true;
     },
     searchRecord() {
-      console.log("开始查询MCC");
       if (this.searchChanged) {
         this.pagination.current = 1;
         this.searchChanged = false;
@@ -210,7 +156,6 @@ export default {
       let params = Object.assign({}, this.searchKey, {
         num: this.pagination.current
       });
-      // console.log(params);
       if (params.queryResult === 1) {
         params.queryResult = true;
       }
@@ -224,7 +169,7 @@ export default {
           delete params[key];
         }
       });
-      let url = API.FIND_MCC;
+      let url = API.FIND_PAYTYPE;
       this.loading = true;
       this.$http
         .post(url, qs.stringify(params))
@@ -268,7 +213,7 @@ export default {
           data: {}
         },
         area: ["900px", "600px"],
-        title: "新增MCC",
+        title: "",
         shade: false
       });
     },
@@ -282,7 +227,7 @@ export default {
           }
         },
         area: ["900px", "600px"],
-        title: "修改MCC",
+        title: "",
         shade: false
       });
     }
@@ -305,7 +250,6 @@ export default {
 
 .history-list {
  padding: 50px 50px;
-  
 }
 .img {
   max-width: 100px;
