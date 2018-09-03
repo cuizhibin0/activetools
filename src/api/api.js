@@ -2,7 +2,7 @@ import {
   IS_DEV
 } from '../../config'
 // import { root } from 'postcss';
-let DVE_URL = 'http://localhost:8082';
+let DVE_URL = 'http://10.10.129.93:8080/prom-web';
 console.log(IS_DEV)
 const API = {
   ROOT: DVE_URL,

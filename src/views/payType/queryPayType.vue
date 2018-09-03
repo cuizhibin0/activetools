@@ -174,21 +174,11 @@ export default {
       this.$http
         .post(url, qs.stringify(params))
         .then(data => {
-          if (data.code === "0000") {
-            this.source = data.object.records || [];
-            this.pagination.total = data.object.total || 0;
-            this.pagination.pagesize = data.object.size;
-            this.pagination.current = data.object.current;
-            this.loading = false;
-          } else {
-            this.n3Alert({
-              content: "加载失败，请刷新试试~",
-              type: "danger",
-              placement: "top-right",
-              duration: 2000,
-              width: "240px" // 内容不确定，建议设置width
-            });
-          }
+          this.source = data.data.records || [];
+          this.pagination.total = data.data.total || 0;
+          this.pagination.pagesize = data.data.size;
+          this.pagination.current = data.data.current;
+          this.loading = false;
         })
         .catch(error => {
           this.loading = false;
@@ -249,7 +239,7 @@ export default {
 @import "../../style/define.less";
 
 .history-list {
- padding: 50px 50px;
+  padding: 50px 50px;
 }
 .img {
   max-width: 100px;

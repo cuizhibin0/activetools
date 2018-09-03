@@ -235,22 +235,16 @@ export default {
         )
         .then(data => {
           // 成功处理
-          if (data.code === "0000" && data.data != null) {
+          if (data.data != null) {
             this.showStatus = true;
             this.model.status = data.data.status;
             this.model.id = data.data.id;
             this.model.name = data.data.name;
             this.model.mcc = data.data.mcc;
-            // this.model.hightAmount = data.object.hightAmount;
-            // this.model.lowAmount = data.object.lowAmount;
-
-            console.log(this.model.status)
-
           }
         })
         .catch(error => {
           this.loading = false;
-          console.log(error);
           this.n3Alert({
             content: "查询失败",
             type: "danger",

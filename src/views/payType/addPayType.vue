@@ -141,17 +141,16 @@ export default {
         )
         .then(data => {
           // 成功处理
-          if (data.code === "0000" && data.object != null) {
+          if (data.data != null) {
             this.showStatus = true;
-            this.model.status = data.object.status;
-            this.model.id = data.object.id;
-            this.model.name = data.object.name;
-            this.model.code = data.object.code;
+            this.model.status = data.data.status;
+            this.model.id = data.data.id;
+            this.model.name = data.data.name;
+            this.model.code = data.data.code;
           }
         })
         .catch(error => {
           this.loading = false;
-          console.log(error);
           this.n3Alert({
             content: "查询失败",
             type: "danger",

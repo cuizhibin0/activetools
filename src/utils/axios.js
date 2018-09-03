@@ -62,10 +62,10 @@ http.interceptors.response.use(res => {
    */
   let data = res.data
   // console.log(data)
-  if (data.code !== '0000') {
-    return Promise.reject(data.msg || MSG.SERVICE_FAIL)
+  if (data.code === '0000' || data.code === '0') {
+    return data
   }
-  return data
+  return Promise.reject(data.msg || MSG.SERVICE_FAIL)
 }, error => {
   NProgress.done()
   if (error.response) {
