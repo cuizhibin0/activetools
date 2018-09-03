@@ -62,13 +62,13 @@
         >
         </n3-input>
       </n3-form-item> -->
-      <div v-if="showStatus">
+      <div v-show="showStatus">
         <n3-form-item
           label="状态"
           :label-col="3"
         >
         <!-- @change="searchChange" -->
-          <n3-select v-model="model.status" >
+          <n3-select v-model="model.status" width="320px" >
               <n3-option value="">全部</n3-option>
               <n3-option value="1">可用</n3-option>
               <n3-option value="0">禁用</n3-option>
@@ -182,7 +182,7 @@ export default {
             duration: 2000,
             width: "240px" // 内容不确定，建议设置width
           });
-
+          this.$layer.closeAll();
         })
         .catch(error => {
           this.loading = false;

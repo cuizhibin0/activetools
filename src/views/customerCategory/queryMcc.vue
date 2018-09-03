@@ -295,7 +295,7 @@ export default {
     }
   },
   created() {
-    this.reload();
+    this.searchRecord();
   }
 };
 </script>
@@ -305,7 +305,6 @@ export default {
 
 .history-list {
  padding: 50px 50px;
-  
 }
 .img {
   max-width: 100px;

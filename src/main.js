@@ -13,8 +13,6 @@ Vue.prototype.$layer = layer(Vue, {
   msgtime: 1
 });
 
-Vue.prototype.$parent = layer(Vue,{});
-
 Vue.use(N3)
 Vue.use(axios)
 /* eslint-disable no-new */
