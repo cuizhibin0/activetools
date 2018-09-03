@@ -149,22 +149,6 @@ export default {
                       </router-link>`;
           }
         }
-        // ,{
-        //   title: "上限金额",
-        //   dataIndex: "hightAmount",
-        //   width: "160px",
-        //   render: text => {
-        //     return text;
-        //   }
-        // },
-        // {
-        //   title: "下限金额",
-        //   dataIndex: "lowAmount",
-        //   width: "160px",
-        //   render: text => {
-        //     return text;
-        //   }
-        // }
         ,{
           title: "状态",
           dataIndex: "status",
@@ -177,7 +161,6 @@ export default {
               text = "可用";
               return text;
             }
-
             // return '<img class="img" src="' + text + '"  />'; //
           }
         },
@@ -230,10 +213,10 @@ export default {
         .post(url, qs.stringify(params))
         .then(data => {
           if (data.code === "0000") {
-            this.source = data.object.records || [];
-            this.pagination.total = data.object.total || 0;
-            this.pagination.pagesize = data.object.size;
-            this.pagination.current = data.object.current;
+            this.source = data.data.records || [];
+            this.pagination.total = data.data.total || 0;
+            this.pagination.pagesize = data.data.size;
+            this.pagination.current = data.data.current;
             this.loading = false;
           } else {
             this.n3Alert({

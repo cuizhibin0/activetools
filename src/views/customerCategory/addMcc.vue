@@ -235,12 +235,12 @@ export default {
         )
         .then(data => {
           // 成功处理
-          if (data.code === "0000" && data.object != null) {
+          if (data.code === "0000" && data.data != null) {
             this.showStatus = true;
-            this.model.status = data.object.status;
-            this.model.id = data.object.id;
-            this.model.name = data.object.name;
-            this.model.mcc = data.object.mcc;
+            this.model.status = data.data.status;
+            this.model.id = data.data.id;
+            this.model.name = data.data.name;
+            this.model.mcc = data.data.mcc;
             // this.model.hightAmount = data.object.hightAmount;
             // this.model.lowAmount = data.object.lowAmount;
 
