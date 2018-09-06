@@ -56,7 +56,34 @@
         >
         </n3-input>
       </n3-form-item>
-      
+      <!-- 最小费率 -->
+       <n3-form-item
+        label= "最小费率"
+        need
+        :label-col="3"
+      >
+      <n3-input
+          v-model="model.minRate"
+          width="320px"
+          :rules="[{type:'required'}]"
+          class="fl"
+        >
+        </n3-input>
+      </n3-form-item>
+      <!-- 最大费率 -->
+       <n3-form-item
+        label= "最小费率"
+        need
+        :label-col="3"
+      >
+      <n3-input
+          v-model="model.maxRate"
+          width="320px"
+          :rules="[{type:'required'}]"
+          class="fl"
+        >
+        </n3-input>
+      </n3-form-item>
       <n3-form-item
         label= "保留小数位数"
         need
@@ -102,7 +129,7 @@
 <script>
 import API from ".././../api/api.js";
 import qs from "qs";
-import PAYTYPE from '@/views/payType/queryPayType'
+import PAYTYPE from "@/views/payType/queryPayType";
 // import { mapState } from "vuex";
 // import { randomPassword, dateFormat } from "../../utils";
 
@@ -111,32 +138,35 @@ export default {
   //   ...mapState(["user"])
   // },
   data() {
-    
     return {
       model: {
         id: "",
-        ruleId:this.$route.query.ruleId,
+        ruleId: this.$route.query.ruleId,
         minAmount: "",
         maxAmount: "",
-        floatingRatio:"",
-        minFloatingRatio:"",
-        maxFloatingRatio:"",
-        decimalNumber:"",
-        type:""
+        floatingRatio: "",
+        minFloatingRatio: "",
+        maxFloatingRatio: "",
+        decimalNumber: "",
+        type: "",
+        minRate: "",
+        maxRate: ""
       },
-    list: [{
-      header: 'first',
-      badge: 12,
-      content: 'first的内容'
-      }, 
-      {
-        header: 'seacond',
-        badge: 12,
-        content: '<input type="text"/>'
-    }],
-    loading: false,
-    src: "",
-    showStatus: false,     
+      list: [
+        {
+          header: "first",
+          badge: 12,
+          content: "first的内容"
+        },
+        {
+          header: "seacond",
+          badge: 12,
+          content: '<input type="text"/>'
+        }
+      ],
+      loading: false,
+      src: "",
+      showStatus: false
     };
   },
   props: {
@@ -229,6 +259,7 @@ export default {
 
 <style lang="less">
 .user-edit {
+  padding: 50px 50px;
   background: #fff;
   .submit-btn {
     width: 320px;

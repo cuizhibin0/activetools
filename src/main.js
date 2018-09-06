@@ -7,6 +7,9 @@ import App from './App'
 import router from './router'
 import axios from './utils/axios'
 import layer from 'vue-layer'
+import 'babel-polyfill'
+
+
 Vue.config.productionTip = false
 
 Vue.prototype.$layer = layer(Vue, {
@@ -15,6 +18,7 @@ Vue.prototype.$layer = layer(Vue, {
 
 Vue.use(N3)
 Vue.use(axios)
+// Vue.use(Assign)
 /* eslint-disable no-new */
 new Vue({
   el: '#app',

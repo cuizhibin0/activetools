@@ -131,7 +131,7 @@ export default {
           dataIndex: "id",
           width: "120px",
           render: text => {
-            return `<n3-button type="primary" block  @click.native="toUpdate(${text})" >修改</n3-button><n3-button type="primary" block  @click.native="toDetailAdd(${text})" >新曾明细</n3-button>`;
+            return `<n3-button type="primary" block  @click.native="toUpdate(${text})" >修改</n3-button><n3-button type="primary" block  @click.native="toDetailAdd(${text})" >新增明细</n3-button>`;
           }
         }
       ],
@@ -208,7 +208,7 @@ export default {
       this.$router.push({ path: '/ruleAdd'})
     },
     toDetailAdd(ruleId) {
-      alert(ruleId)
+      // alert(ruleId)
       this.$router.push({ path: '/ruleDetailAdd',query:{ruleId:ruleId}})
     },
     toUpdate(mccId) {
