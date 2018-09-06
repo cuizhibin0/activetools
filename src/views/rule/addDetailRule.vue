@@ -72,7 +72,7 @@
       </n3-form-item>
       <!-- 最大费率 -->
        <n3-form-item
-        label= "最小费率"
+        label= "最大费率"
         need
         :label-col="3"
       >
